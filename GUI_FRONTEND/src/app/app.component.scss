@@ -1,0 +1,168 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.main-body {
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1348px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.action {
+  display: flex;
+  gap: 5px;
+}
+
+.select-field {
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Montserrat:wght@100;400&family=Poltawski+Nowy:wght@500&family=Poppins:wght@200;400&family=Tiro+Devanagari+Sanskrit&family=Titan+One&display=swap');
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 17px;
+      margin-top: 10px;
+      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+    }
+
+    menu {
+      margin: 0;
+    }
+
+    .right-nav li {
+      display: inline-block;
+      padding: 0px 10px;
+    }
+
+    .left-nav {
+      font-family: 'EB+Garamond', cursive;
+      font-size: 30px;
+      font-weight: lighter;
+    }
+
+    .right-nav {
+      padding-top: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .title {
+      font-family: 'Lobster', cursive;
+      font-size: 50px;
+      color: #ED2B2A;
+      font-weight: 600;
+    }
+
+    .main {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+
+    .main-text {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .main-text h1 {
+      color: #ED2B2A;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    }
+
+    .main-text p {
+      font-family: 'poppins'
+
+    }
+    menu{
+      padding-bottom: 10px;
+    }
+    .active-view {
+    border-bottom: 4px solid #ED2B2A;
+    }
+
+    #choice{
+      width: 250px;
+    }
+    .add-select{
+      display: flex;
+      justify-content: flex-end;
+    }
+    #btn-add{
+      padding: 15px;
+    margin-top: 40px;
+    height: 50px;
+    }
+
+    .login-div{
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .login-right{
+      margin-top: 80px;
+    }
+
+    input{
+      height: 40px;
+      width:350px;
+      border-radius: 15px;
+      border: 0.7px solid rgb(80, 79, 79);
+    }
+
+    #login-input{
+      margin-top: 8px;
+    }
+
+    .field{
+      margin-top: 10px;
+    }
+
+    .btn-login{
+      margin-top: 20px;
+    }
+
+    label{
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-size: 18px;
+    }
+
+    .login-heading{
+      font-family:Georgia, 'Times New Roman', Times, serif;
+      font-size: 35px;
+      font-weight: bold;
+      color: #ED2B2A;
+      text-align: center;
+    }

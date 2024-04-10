@@ -1,0 +1,206 @@
+<ng-template #crud>
+<header>
+  <div class="left-nav"><span class="title">R</span>ail Ops Hub</div>
+  <div class="right-nav">
+    <menu>
+      <li>
+        <a (click)="currentView='home'" [ngClass]="{'active-view': currentView === 'home'}" class="pointer">Home</a>
+      </li>
+      <li *ngIf="isLoggedIn != 'true'">
+        <a (click)="currentView='login'" [ngClass]="{'active-view': currentView === 'login'}" class="pointer">Login</a>
+      </li>
+      <li *ngIf="isLoggedIn == 'true'">
+        <a (click)="logout()" class="pointer">Logout</a>
+      </li>
+      <li *ngIf="isLoggedIn == 'true'">
+        <a (click)="currentView='crud'" [ngClass]="{'active-view': currentView === 'crud'}" class="pointer">Dashboard</a>
+      </li>
+    </menu>
+  </div>
+</header>
+
+  <div class="main-body">
+    <div class="add-select">
+      <mat-form-field class="select-field" id="choice">
+        <mat-label>Select table</mat-label>
+        <mat-select [(value)]="selectedOption" class="custom-select" (selectionChange)="changeFunction($event)">
+          <mat-option value="Person">PERSON</mat-option>
+          <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+          <mat-option value="PASSENGER">PASSENGER</mat-option>
+          <mat-option value="MBTA_STATION">MBTA STATION</mat-option>
+          <mat-option value="MBTA_TRAININFO">MBTA TRAIN INFO</mat-option>
+          <mat-option value="EMPLOYEE_TRAIN_ASSIGNMENT">EMPLOYEE TRAIN ASSIGNMENT</mat-option>
+          <mat-option value="MBTA_CHARLIE">MBTA CHARLIE</mat-option>
+          <mat-option value="MBTA_PASSENGERFREQUENCY">MBTA PASSENGER FREQUENCY</mat-option>
+          <mat-option value="MBTA_ROUTE_SCHEDULE">MBTA ROUTE SCHEDULE</mat-option>
+          <mat-option value="MBTA_ROUTEINFO">MBTA ROUTE INFO</mat-option>
+          <mat-option value="MBTA_SCHEDULE">MBTA SCHEDULE</mat-option>
+          <mat-option value="MBTA_TRANSACTION">MBTA TRANSACTION</mat-option>
+          <mat-option value="MBTA_TYPES">MBTA TYPES</mat-option>
+          <mat-option value="ROUTE_TYPE">ROUTE TYPE</mat-option>
+          <mat-option value="STATION_ROUTE">STATION ROUTE</mat-option>
+          <mat-option value="TRAIN_CURRENTSTATUS">TRAIN CURRENT STATUS</mat-option>
+          <mat-option value="TRAIN_ROUTEASSIGNMENT">TRAIN ROUTE ASSIGNMENT</mat-option>
+          <mat-option value="TRAIN_STATUS_HISTORY">TRAIN STATUS HISTORY</mat-option>
+  
+  
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="openAddEditEmpForm()" id="btn-add" color="warn">
+        ADD {{selectedOption}}
+      </button>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container *ngFor="let columnName of displayedColumns" matColumnDef={{columnName}}>
+          <div>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnName}} </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="columnName != 'action'">{{(columnName.toLowerCase().includes("date") ||
+                columnName.toLowerCase().includes("year")) ? (row[columnName] | date)
+                :
+                row[columnName]}} </div>
+              <div *ngIf="columnName == 'action'">
+                <button mat-icon-button color="primary" (click)="openEditForm(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteEmployee(row[primaryKeyName])">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </div>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary" (click)="openEditForm(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteEmployee(row[primaryKeyName])">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #home>
+    <header>
+      <div class="left-nav"><span class="title">R</span>ail Ops Hub</div>
+      <div class="right-nav">
+        <menu>
+          <li>
+            <a (click)="currentView='home'" [ngClass]="{'active-view': currentView === 'home'}" class="pointer">Home</a>
+          </li>
+          <li *ngIf="isLoggedIn != 'true'">
+            <a (click)="currentView='login'" [ngClass]="{'active-view': currentView === 'login'}" class="pointer">Login</a>
+          </li>
+          <li *ngIf="isLoggedIn == 'true'">
+            <a (click)="logout()" class="pointer">Logout</a>
+          </li>
+          <li *ngIf="isLoggedIn == 'true'">
+            <a (click)="currentView='crud'" [ngClass]="{'active-view': currentView === 'crud'}" class="pointer">Dashboard</a>
+          </li>
+        </menu>
+      </div>
+    </header>
+  
+
+  <div class="main">
+    <div class="main-img">
+      <img src="../assets/images/train.png" alt="" srcset="">
+    </div>
+    <div class="main-text">
+      <h1>Navigate the Tracks with Ease: Your Ultimate Railway Management Solution</h1>
+      <p>RailOps Hub is a sophisticated web application tailored for efficient railway management. It seamlessly
+        integrates data from diverse sources like train schedules, passenger information, and infrastructure status to
+        offer a unified control center. This hub empowers railway operators with tools for real-time monitoring,
+        predictive maintenance, resource allocation, and passenger services management. With its intuitive interface and
+        advanced analytics, "RailOps Hub" revolutionizes railway operations, enhancing safety, reliability, and customer
+        satisfaction across the network.</p>
+      <button mat-stroked-button color="warn" (click)="explore()">Explore Now</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #loginView>
+  <header>
+    <div class="left-nav"><span class="title">R</span>ail Ops Hub</div>
+    <div class="right-nav">
+      <menu>
+        <li>
+          <a (click)="currentView='home'" [ngClass]="{'active-view': currentView === 'home'}" class="pointer">Home</a>
+        </li>
+        <li *ngIf="isLoggedIn != 'true'">
+          <a (click)="currentView='login'" [ngClass]="{'active-view': currentView === 'login'}" class="pointer">Login</a>
+        </li>
+        <li *ngIf="isLoggedIn == 'true'">
+          <a (click)="logout()" class="pointer">Logout</a>
+        </li>
+        <li *ngIf="isLoggedIn == 'true'">
+          <a (click)="currentView='crud'" [ngClass]="{'active-view': currentView === 'crud'}" class="pointer">Dashboard</a>
+        </li>
+      </menu>
+    </div>
+  </header>
+  <div class="login-div">
+    <div class="login-left">
+      <img src="../assets/images/login.png" alt="" srcset="">
+    </div>
+    <div class="login-right">
+      <h1 class="login-heading">LOGIN</h1>
+          <form class="login-form">
+            <span class="field">
+              <label>Username</label>
+              <br>
+              <input matInput placeholder="Enter your username" type="text" [(ngModel)]="username" name="username" id="login-input"
+                required>
+            </span>
+            <span class="field">
+              <label>Password</label>
+              <br>
+              <input matInput placeholder="Enter your password" type="password" [(ngModel)]="password" name="password" id="login-input"
+                required>
+            </span>
+  
+            <button mat-raised-button color="warn" (click)="login()" class="btn-login">Login</button>
+          </form>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="currentView == 'home'">
+  <ng-container *ngTemplateOutlet="home"></ng-container>
+</div>
+
+<div *ngIf="currentView == 'crud'">
+  <ng-container *ngTemplateOutlet="crud"></ng-container>
+</div>
+
+<div *ngIf="currentView == 'login'">
+  <ng-container *ngTemplateOutlet="loginView"></ng-container>
+</div>
